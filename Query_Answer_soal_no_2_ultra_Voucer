@@ -1,0 +1,21 @@
+
+-- Saya membuat dan menginput table sesuai soal terlebihdahulu
+CREATE TABLE people (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    parent_id INT NULL,
+    CONSTRAINT fk_parent FOREIGN KEY (parent_id) REFERENCES people(id) ON DELETE SET NULL
+);
+INSERT INTO people (id, name, parent_id) VALUES
+(1, 'Zaki', 2),
+(2, 'Ilham', NULL),
+(3, 'Irwan', 2),
+(4, 'Arka', 3);
+
+
+SELECT * FROM people
+
+-- Jawaban !!!
+
+-- Query untuk mengambil data table sesuai di soal
+SELECT p2.id, p2.name, p1.name AS parent_name FROM people AS p1 RIGHT JOIN people AS p2 ON p1.id = p2.parent_id 
