@@ -1,9 +1,15 @@
 
+
+
+
 function anagram(arr) {
 
-    let result = []
+    let arrLength = countLengthArr(arr)
 
-    for (let i = 0; i < arr.length; i++) {
+    let result = []
+    let resultLength = 0
+
+    for (let i = 0; i < arrLength; i++) {
         //loop pertama untuk loop seluruh componen arr
 
         //element yang dicari
@@ -12,38 +18,54 @@ function anagram(arr) {
 
         //arr dimesi kedua
         let anagrams = []
-        anagrams.push(x)
-        
-        for (let j = i + 1; j < arr.length; j++) {
+        let anagramsLength = 0;
 
+        //push ke anagrams
+        anagrams[anagramsLength] = x;
+        anagramsLength += 1;
+
+        let arrLength = countLengthArr(arr)
+        
+        for (let j = i + 1; j < arrLength; j++) {
             //element arr setelah yang di cari
             // [ setelah yang di cari.... sampe n ]
             let arrHuruf = arr[j]
+            // let arrHurufLength = countLengthArr(arrHuruf)
+
 
             if(sortAlfabet(arrHuruf) === sortAlfabet(x)){
-                anagrams.push(arrHuruf)
+                anagrams[anagramsLength] = arrHuruf
+                anagramsLength += 1
+                // anagrams.push(arrHuruf)
                 arr[j] = ""
-                
             }
         }
 
-        result.push(anagrams)
-        anagrams = []
+        result[resultLength] = anagrams
+        resultLength += 1;
 
+  
+        anagrams = []
+        anagramsLength = 0
     }
 
     //bersihkan result dari array kosong ""
+
+    console.log(result);
+    
     
     let clearResult = []
-    for (let i = 0; i < result.length; i++) {
+    let clearResultLength = 0
+
+    for (let i = 0; i < resultLength; i++) {
         const e = result[i];
         
         
         if(e[0] !== ''){
-            clearResult.push(e)
+            clearResult[clearResultLength] = e
+            clearResultLength += 1
         }
     }
-
 
 
 
@@ -51,19 +73,27 @@ function anagram(arr) {
 
 }
 
-
-function sortAlfabet(word) {
+function countLengthArr(arr){
     let dump = 0;
     let dump2 = 1;
-    while(  word[dump2] != undefined){
+    while(  arr[dump2] != undefined){
       dump ++;
       dump2 ++;
     }
 
     let wordLength = dump2;
 
+    return wordLength
+}
 
 
+function sortAlfabet(word) {
+   
+
+    let wordLength = countLengthArr(word);
+
+
+    //sorting untuk alfabet
     const alfabet = "abcdefghijklmnopqrstuvwxyz";
     let alfabetLength = 26;
 
@@ -79,9 +109,7 @@ function sortAlfabet(word) {
             if (searchedWord === alfabet[i]) {
                 sorted[i] = searchedWord
             }
-            
             sortedLength += 1
-
         }
 
     }
@@ -110,5 +138,4 @@ function sortAlfabet(word) {
 
 
 
-console.log(anagram(['cook', 'save', 'taste', 'aves', 'vase', 'state', 'map']
-));
+console.log(anagram(['cook', 'save', 'taste', 'aves', 'vase', 'state', 'map']));
